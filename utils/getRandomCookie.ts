@@ -1,4 +1,6 @@
-const MAX_COOKIES_ID = 5
+const MAX_COOKIES_ID = 25
+
+import cookies from "@db/cookies"
 
 export const getRandomCookie: (notThisOne?: number) => number = (
   notThisOne?: number

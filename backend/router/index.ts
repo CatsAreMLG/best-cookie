@@ -1,17 +1,15 @@
 import * as trpc from "@trpc/server"
-
 import { z } from "zod"
 
-export const appRouter = trpc.router().query("hello", {
-  input: z
-    .object({
-      text: z.string().nullish(),
-    })
-    .nullish(),
-  resolve({ input }) {
-    return {
-      greeting: `hello ${input?.text ?? "world"}`,
-    }
+import { getCookieById } from "@utils/getCookieById"
+
+export const appRouter = trpc.router().query("get-cookie-by-id", {
+  input: z.object({
+    id: z.number(),
+  }),
+  async resolve({ input }) {
+    const cookie = await getCookieById(input.id)
+    return cookie
   },
 })
 

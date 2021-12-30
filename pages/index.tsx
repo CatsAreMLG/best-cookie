@@ -1,9 +1,17 @@
+import { useState } from "react"
 import { getOptionsForVote } from "@utils/getRandomCookie"
 import { trpc } from "@utils/trpc"
 import type { NextPage } from "next"
 
 const Home: NextPage = () => {
-  const [first, second] = getOptionsForVote()
+  const [ids, updateIds] = useState(() => getOptionsForVote())
+
+  const [first, second] = ids
+
+  const firstCookie = trpc.useQuery(["get-cookie-by-id", { id: first }])
+
+  console.log(firstCookie.data)
+
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
       <div className="text-2xl text-center">Which Cookie is Better?</div>
